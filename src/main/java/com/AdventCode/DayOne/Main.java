@@ -276,17 +276,10 @@ public class Main {
         return currentTotal;
     }
 
-
-
     private static void print(int total)   {
         System.out.println(total);
     }
 
-    private static void checkForNumber(String input)   {
-
-
-
-    }
 
 
 
