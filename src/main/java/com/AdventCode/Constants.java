@@ -6,6 +6,7 @@ public class Constants {
 
     public static final String DayOneRegex = "[^0-9] |one|two|three|four|five|six|seven|eight|nine";
     public static final String[] constantNumbers = {"one", "two" ,"three", "four", "five", "six", "seven", "eight", "nine"};
+    public static final String[] constantNumbersReversed = {"eno", "owt", "eerht", "ruof", "eivf", "xis", "neves", "thgie", "enin"};
 
 
 }

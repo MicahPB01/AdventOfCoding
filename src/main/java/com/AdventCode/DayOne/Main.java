@@ -49,13 +49,13 @@ public class Main {
         int firstNumber = 0;
         int secondNumber = 0;
 
-        for(int i = 0; i < input.size(); i++)   {
+        for(int i = 0; i < input.size(); i++) {
             String tempString;
             String tempCleanString;
             String cleanedCurrent;
+            int offset;
 
             ArrayList<Integer> testInteger = new ArrayList<>();
-
 
 
             ArrayList<Integer> locationOfDigits = new ArrayList<>();
@@ -69,14 +69,13 @@ public class Main {
 
             tempString = input.get(i);
 
-            tempCleanString = tempString.replaceAll("[^0-9 |one|two|three|four|five|six|seven|eight|nine]", "");
+            tempCleanString = tempString;
             System.out.println(tempCleanString);
 
 
+            for (int j = 0; j < tempCleanString.length(); j++) {
 
-            for(int j = 0; j < tempCleanString.length(); j++) {
-
-                if(Character.isDigit(tempCleanString.charAt(j))) {
+                if (Character.isDigit(tempCleanString.charAt(j))) {
 
                     locationOfDigits.add(j);
                     digits.add(Character.getNumericValue(tempCleanString.charAt(j)));
@@ -85,128 +84,183 @@ public class Main {
                 }
             }
 
-            for(int j = 0; j < tempCleanString.length() - 2; j++)   {
+            for (int j = 0; j < tempCleanString.length() - 1; j++) {
 
                 String currentCheck = StringUtils.substring(tempCleanString, j, j + 5);
                 System.out.println(currentCheck);
 
-                for(int k = 0; k < Constants.constantNumbers.length; k++)   {
-                    if(currentCheck.endsWith(Constants.constantNumbers[k]))   {
+                for (int k = 0; k < Constants.constantNumbers.length; k++) {
+                    if ((currentCheck.endsWith(Constants.constantNumbers[k]) && currentCheck.length() == 5) || currentCheck.startsWith(Constants.constantNumbers[k])) {
                         cleanedCurrent = Constants.constantNumbers[k];
-                        locationOfSpelledDigits.add(j);
+
+
+
+
+
+                        if(currentCheck.endsWith(Constants.constantNumbers[k])) {
+                            offset = switch (cleanedCurrent) {
+                                case "one", "two", "six" -> 2;
+                                case "four", "five", "nine" -> 1;
+                                default -> 0;
+                            };
+                            //System.out.println("Adding offset of: " + offset);
+                            offset += j;
+                        }
+                        else   {
+                            offset = j;
+                        }
+
+
+                        locationOfSpelledDigits.add(offset);
                         spelledNumbers.add(cleanedCurrent);
-                        System.out.println("There is a spelled out number starting at location: " + j + " That number is: " + cleanedCurrent);
+                        System.out.println("There is a spelled out number starting at location: " + offset + " That number is: " + cleanedCurrent + "TEST: " + tempCleanString.charAt(offset));
+                    }
+                }
+
+
+            }
+
+
+
+
+            if (!locationOfDigits.isEmpty() || !locationOfSpelledDigits.isEmpty()) {
+
+                if(digits.size() == 1 && spelledNumbers.size() == 0)   {
+                    firstNumber = digits.get(0);
+                    secondNumber = firstNumber;
+                }
+
+                if(spelledNumbers.size() == 1 && digits.size() == 0)   {
+                    firstNumber = switch (spelledNumbers.get(0)) {
+                        case "one" -> 1;
+                        case "two" -> 2;
+                        case "three" -> 3;
+                        case "four" -> 4;
+                        case "five" -> 5;
+                        case "six" -> 6;
+                        case "seven" -> 7;
+                        case "eight" -> 8;
+                        case "nine" -> 9;
+                        default -> firstNumber;
+                    };
+                    secondNumber = firstNumber;
+                }
+
+                if(digits.size() > 1 && spelledNumbers.size() == 0)   {
+                    firstNumber = digits.get(0);
+                    secondNumber = digits.get(digits.size()-1);
+                }
+
+                if(spelledNumbers.size() == 2 && digits.size() == 0) {
+                    firstNumber = switch (spelledNumbers.get(0)) {
+                        case "one" -> 1;
+                        case "two" -> 2;
+                        case "three" -> 3;
+                        case "four" -> 4;
+                        case "five" -> 5;
+                        case "six" -> 6;
+                        case "seven" -> 7;
+                        case "eight" -> 8;
+                        case "nine" -> 9;
+                        default -> firstNumber;
+                    };
+                    secondNumber = switch (spelledNumbers.get(spelledNumbers.size()-1)) {
+                        case "one" -> 1;
+                        case "two" -> 2;
+                        case "three" -> 3;
+                        case "four" -> 4;
+                        case "five" -> 5;
+                        case "six" -> 6;
+                        case "seven" -> 7;
+                        case "eight" -> 8;
+                        case "nine" -> 9;
+                        default -> secondNumber;
+                    };
+                }
+
+
+
+                if (!locationOfDigits.isEmpty() && !locationOfSpelledDigits.isEmpty()) {
+                    if (locationOfDigits.get(0) < locationOfSpelledDigits.get(0)) {
+                        firstNumber = digits.get(0);
+                    } else {
+                        firstNumber = switch (spelledNumbers.get(0)) {
+                            case "one" -> 1;
+                            case "two" -> 2;
+                            case "three" -> 3;
+                            case "four" -> 4;
+                            case "five" -> 5;
+                            case "six" -> 6;
+                            case "seven" -> 7;
+                            case "eight" -> 8;
+                            case "nine" -> 9;
+                            default -> firstNumber;
+                        };
+                    }
+
+
+                    if (locationOfDigits.get(locationOfDigits.size() - 1) > locationOfSpelledDigits.get(locationOfSpelledDigits.size() - 1)) {
+                        secondNumber = digits.get(digits.size() - 1);
+                    } else {
+                        //System.out.println("SWITCHING: " + spelledNumbers.get(spelledNumbers.size() - 1));
+                        switch (spelledNumbers.get(spelledNumbers.size() - 1)) {
+                            case "one":
+                                secondNumber = 1;
+                                break;
+                            case "two":
+                                secondNumber = 2;
+                                break;
+                            case "three":
+                                secondNumber = 3;
+                                break;
+                            case "four":
+                                secondNumber = 4;
+                                break;
+                            case "five":
+                                secondNumber = 5;
+                                break;
+                            case "six":
+                                secondNumber = 6;
+                                break;
+                            case "seven":
+                                secondNumber = 7;
+                                break;
+                            case "eight":
+                                secondNumber = 8;
+                                break;
+                            case "nine":
+                                secondNumber = 9;
+                        }
                     }
                 }
 
 
 
+
+
+
+
+
+
+                numbers[0] = String.valueOf(firstNumber);
+                numbers[1] = String.valueOf(secondNumber);
+
+                toAdd = numbers[0] + numbers[1];
+
+
+                //System.out.println(toAdd);
+                cleanedStrings.add(toAdd);
+
+                locationOfDigits = null;
+                locationOfSpelledDigits = null;
+                spelledNumbers = null;
+                digits = null;
+
+                System.out.println("First Number: " + firstNumber + " Second Number: " + secondNumber);
+                firstNumber = 0;
+                secondNumber = 0;
             }
-
-
-            if(locationOfDigits.get(0) < locationOfSpelledDigits.get(0))   {
-                firstNumber = digits.get(0);
-            }
-            else   {
-                switch (spelledNumbers.get(0))   {
-                    case "one":
-                        firstNumber = 1;
-                        break;
-                    case "two":
-                        firstNumber = 2;
-                        break;
-                    case "three":
-                        firstNumber = 3;
-                        break;
-                    case "four":
-                        firstNumber = 4;
-                        break;
-                    case "five":
-                        firstNumber = 5;
-                        break;
-                    case "six":
-                        firstNumber = 6;
-                        break;
-                    case "seven":
-                        firstNumber = 7;
-                        break;
-                    case "eight":
-                        firstNumber = 8;
-                        break;
-                    case "nine":
-                        firstNumber = 9;
-                }
-            }
-
-            if(locationOfDigits.get(locationOfDigits.size() - 1) > locationOfSpelledDigits.get(locationOfSpelledDigits.size() - 1))   {
-                secondNumber = digits.get(digits.size() - 1);
-            }
-            else   {
-                System.out.println("SWITCHING: " + spelledNumbers.get(spelledNumbers.size() - 1));
-                switch (spelledNumbers.get(spelledNumbers.size() - 1))   {
-                    case "one":
-                        secondNumber = 1;
-                        break;
-                    case "two":
-                        secondNumber = 2;
-                        break;
-                    case "three":
-                        secondNumber = 3;
-                        break;
-                    case "four":
-                        secondNumber = 4;
-                        break;
-                    case "five":
-                        secondNumber = 5;
-                        break;
-                    case "six":
-                        secondNumber = 6;
-                        break;
-                    case "seven":
-                        secondNumber = 7;
-                        break;
-                    case "eight":
-                        secondNumber = 8;
-                        break;
-                    case "nine":
-                        secondNumber = 9;
-                }
-            }
-
-            System.out.println("First Number: " + firstNumber + " Second Number: " + secondNumber);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            numbers[0] = String.valueOf(tempCleanString.charAt(0));
-            numbers[1] = String.valueOf(tempCleanString.charAt(tempCleanString.length()-1));
-
-            toAdd = numbers[0] + numbers[1];
-
-
-            //System.out.println(toAdd);
-            cleanedStrings.add(toAdd);
-
-            locationOfDigits.clear();
-            locationOfSpelledDigits.clear();
-            spelledNumbers.clear();
-            digits.clear();
-
-
         }
-
         return cleanedStrings;
     }
 
