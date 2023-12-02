@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class PartOne {
+public class PartTwo {
 
     private static int MAX_REDS = 12;
     private static int MAX_GREENS = 13;
@@ -34,7 +31,7 @@ public class PartOne {
 
 
     private static List<Game> allGames(List<String> linesOfInput)   {
-        int totalOfValidIDs = 0;
+        int totalPowerOfCubes = 0;
 
         List<Game> games = new ArrayList<>();
         List<Game> invalidGames = new ArrayList<>();
@@ -44,23 +41,21 @@ public class PartOne {
             games.add(parseGame(linesOfInput.get(i)));
         }
 
+
         for(int i = 0; i < games.size(); i++)   {
-            if(!isValid(games.get(i)))   {
-                games.get(i).setValid(false);
-                invalidGames.add(games.get(i));
-                System.out.println("Games Number " + games.get(i).getGameID() + " is invalid!");
-            }
-            else   {
-                validGames.add(games.get(i));
-            }
-        }
+            int numReds = games.get(i).getLargestRed();
+            int numGreens = games.get(i).getLargestGreen();
+            int numBlues = games.get(i).getLargestBlue();
+            int totalMultiply = numReds * numGreens * numBlues;
 
-        for(int i = 0; i < validGames.size(); i++)   {
-            totalOfValidIDs += validGames.get(i).getGameID();
+
+
+
+            totalPowerOfCubes += totalMultiply;
         }
 
 
-        System.out.println(totalOfValidIDs);
+        System.out.println(totalPowerOfCubes);
         return null;
     }
 
