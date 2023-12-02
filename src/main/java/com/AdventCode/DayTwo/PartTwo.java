@@ -34,8 +34,7 @@ public class PartTwo {
         int totalPowerOfCubes = 0;
 
         List<Game> games = new ArrayList<>();
-        List<Game> invalidGames = new ArrayList<>();
-        List<Game> validGames = new ArrayList<>();
+
 
         for(int i = 0; i < linesOfInput.size(); i++) {
             games.add(parseGame(linesOfInput.get(i)));
@@ -43,13 +42,8 @@ public class PartTwo {
 
 
         for(int i = 0; i < games.size(); i++)   {
-            int numReds = games.get(i).getLargestRed();
-            int numGreens = games.get(i).getLargestGreen();
-            int numBlues = games.get(i).getLargestBlue();
-            int totalMultiply = numReds * numGreens * numBlues;
 
-
-
+            int totalMultiply = createResult(games.get(i));
 
             totalPowerOfCubes += totalMultiply;
         }
@@ -57,6 +51,20 @@ public class PartTwo {
 
         System.out.println(totalPowerOfCubes);
         return null;
+    }
+
+    private static void printResult(int result)   {
+        System.out.println(result);
+    }
+
+    private static int createResult(Game game)   {
+
+        int numReds = game.getLargestRed();
+        int numGreens = game.getLargestGreen();
+        int numBlues = game.getLargestBlue();
+
+        return numReds * numGreens * numBlues;
+
     }
 
     private static boolean isValid(Game game)   {
@@ -153,17 +161,7 @@ public class PartTwo {
 
     }
 
-    private static int parseIntOrZero(String check)   {
-        System.out.println("Checking: " + check);
 
-        if(check != null)   {
-            return Integer.parseInt(check);
-        }
-        else   {
-            return 0;
-        }
-
-    }
 
 
 
