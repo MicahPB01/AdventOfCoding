@@ -1,4 +1,6 @@
-package com.AdventCode.DayTwo;
+package com.AdventCode.DayTwo.Models;
+
+import com.AdventCode.DayTwo.Models.Pull;
 
 import java.util.List;
 

@@ -1,5 +1,8 @@
 package com.AdventCode.DayTwo;
 
+import com.AdventCode.DayTwo.Models.Game;
+import com.AdventCode.DayTwo.Models.Pull;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
