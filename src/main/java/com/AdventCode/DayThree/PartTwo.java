@@ -9,11 +9,11 @@ import java.util.List;
 public class PartTwo {
 
     private static final String[] symbols = {"*", "#", "+", "$"};
-    private static final int length = 140;
+    private static final int length = 5;
 
 
     public static void main(String args[]) throws IOException {
-        String filePath = "src/main/java/com/AdventCode/DayThree/DayThreeInput.txt";
+        String filePath = "src/main/java/com/AdventCode/DayThree/DayThreeManualTest.txt";
 
 
         String[][] input = getInput(filePath);
