@@ -11,10 +11,6 @@ import java.util.List;
 
 public class PartTwo {
 
-    private static int MAX_REDS = 12;
-    private static int MAX_GREENS = 13;
-    private static int MAX_BLUES = 14;
-
 
     public static void main(String args[]) throws IOException {
         String filePath ="src/main/java/com/AdventCode/DayTwo/DayTwoInput.txt";
@@ -72,14 +68,17 @@ public class PartTwo {
 
     private static boolean isValid(Game game)   {
 
+        int MAX_REDS = 12;
         if(game.getLargestRed() > MAX_REDS)   {
             return false;
         }
 
+        int MAX_GREENS = 13;
         if(game.getLargestGreen() > MAX_GREENS)   {
             return false;
         }
 
+        int MAX_BLUES = 14;
         if(game.getLargestBlue() > MAX_BLUES)   {
             return false;
         }
