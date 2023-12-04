@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ public class PartOne {
     public static void main(String args[]) throws IOException {
         String filePath = "src/main/java/com/AdventCode/DayThree/DayThreeInput.txt";
 
+
         String[][] input = getInput(filePath);
 
 
@@ -26,6 +28,22 @@ public class PartOne {
 
     private static void mainLogic(String[][] input) {
         String[][] filledOutArray = fillOutArray(input);
+
+
+
+
+
+        /*
+        for(int i = 0; i < filledOutArray.length; i++)   {
+            for(int j = 0; j < length; j++)   {
+
+                System.out.println("Location: " + i+ "x"+j + " character: " + filledOutArray[i][j] + " USED: " + usedArray[i][j][0]);
+            }
+        }
+
+
+         */
+
         int total = 0;
 
         for(int i = 0; i < filledOutArray.length; i++)   {
@@ -39,56 +57,228 @@ public class PartOne {
 
 
                     //checking for a symbol to the right
-                    if (j + 1 < length && filledOutArray[i][j + 1].matches("[^0-9.]")) {
-                        //System.out.println("FOUND A SYMBOL");
+                    if (j + 1 < length && filledOutArray[i][j + 1].matches("[^0-9.\n]")) {
+                        System.out.println("FOUND RIGHT");
                         System.out.println("Adding: " + input[i][j] + " to " + total);
                         total += Integer.parseInt(filledOutArray[i][j]);
 
 
-                    //check for symbol to the left
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
+
+
+
+
+                        //check for symbol to the left
                     }
-                    else if(j - 1 >= 0 && filledOutArray[i][j - 1].matches("[^0-9.]")) {
-                        System.out.println("Adding: " + input[i][j] + " to " +total);
+                    else if(j - 1 >= 0 && filledOutArray[i][j - 1].matches("[^0-9.\n]")) {
+                        System.out.println("FOUND LEFT");
                         total += Integer.parseInt(filledOutArray[i][j]);
+                        int loopControl = filledOutArray[i][j].length();
+                        filledOutArray[i][j] = ".";
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(filledOutArray[i][j]))   {
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
 
                     }
                     //check for up
-                    else if (i - 1 >= 0 && filledOutArray[i - 1][j].matches("[^0-9.]")) {
+                    else if (i - 1 >= 0 && filledOutArray[i - 1][j].matches("[^0-9.\n]") ) {
+                        System.out.println("FOUND UP");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
+
                         total  += Integer.parseInt(filledOutArray[i][j]);
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
                         j += input[i][j].length();
                     }
                     //check for down
-                    else if (i + 1 < length && filledOutArray[i + 1][j].matches("[^0-9.]")) {
+                    else if (i + 1 < filledOutArray.length && filledOutArray[i + 1][j].matches("[^0-9.\n]") ) {
+                        System.out.println("FOUND DOWN");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
                         total  += Integer.parseInt(filledOutArray[i][j]);
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
                         j += input[i][j].length();
                     }
 
                     //check for up-left
-                    else if(j - 1 >= 0 && i - 1 >= 0 && filledOutArray[i - 1][j - 1].matches("[^0-9.]")) {
+                    else if(j - 1 >= 0 && i - 1 >= 0 && filledOutArray[i - 1][j - 1].matches("[^0-9.\n]") ) {
+                        System.out.println("FOUND UP_LEFT");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
                         total  += Integer.parseInt(filledOutArray[i][j]);
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
                         j += input[i][j].length();
                     }
                     //check for up-right
-                    else if(j + 1 < length && i - 1 >= 0 && filledOutArray[i - 1][j + 1].matches("[^0-9.]")) {
+                    else if(j + 1 < length && i - 1 >= 0 && filledOutArray[i - 1][j + 1].matches("[^0-9.\n]")) {
+                        System.out.println("FOUND UP_RIGHT");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
                         total += Integer.parseInt(filledOutArray[i][j]);
+                        System.out.println("LENGTH: "+ filledOutArray[i][j].length());
+
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
+
                         j += input[i][j].length();
                     }
 
                     //check for down left
-                    else if(i + 1 < filledOutArray.length && j - 1 >= 0 && filledOutArray[i + 1][j - 1].matches("[^0-9.]"))   {
+                    else if(i + 1 < filledOutArray.length && j - 1 >= 0 && filledOutArray[i + 1][j - 1].matches("[^0-9.\n]") )   {
+                        System.out.println("FOUND DOWN_LEFT");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
                         total += Integer.parseInt(filledOutArray[i][j]);
+
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
+                        j += input[i][j].length();
 
                     }
                     //check for down right
-                    else if(i + 1 < filledOutArray.length && j + 1 < length && filledOutArray[i + 1][j + 1].matches("[^0-9.]")) {
+                    else if(i + 1 < filledOutArray.length && j + 1 < length && filledOutArray[i + 1][j + 1].matches("[^0-9.\n]")) {
+                        System.out.println("FOUND DOWN_RIGHT");
                         System.out.println("Adding: " + input[i][j] + " to " +total);
+
+
                         total += Integer.parseInt(filledOutArray[i][j]);
-                        j += input[i][j].length();
+
+                        int loopControl = filledOutArray[i][j].length();
+                        String specialNumber = filledOutArray[i][j];
+
+
+                        for(int k = 0 - loopControl; k < loopControl; k++)   {
+
+
+                            if(j + k < 0 || j + k >= length)   {
+                                continue;
+                            }
+                            System.out.println("Checking location " + k + " relative to number");
+                            if(filledOutArray[i][j + k].equals(specialNumber))   {
+                                System.out.println("found same number, marking with . ");
+                                filledOutArray[i][j+k] = ".";
+                            }
+                        }
+
+
+
+
                     }
 
 
@@ -101,6 +291,15 @@ public class PartOne {
 
 
 
+        }
+
+        for(int i = 0; i < filledOutArray.length; i++)   {
+            for(int j = 0; j < length; j++)   {
+                if(filledOutArray[i][j].matches("[0-9]")) {
+
+                    //System.out.println("Location: " + i + "x" + j + " character: " + filledOutArray[i][j] + " USED: " + filledOutArray[i][j][0]);
+                }
+            }
         }
 
         System.out.println("TOTAL IS: " + total);
