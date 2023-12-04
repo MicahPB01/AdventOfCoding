@@ -20,7 +20,7 @@ public class Main {
 
 
     public static void main(String args[]) throws IOException {
-        List<String> input = getInput("C:\\Users\\micah\\IdeaProjects\\AdventOfCoding\\src\\main\\java\\com\\AdventCode\\DayOne\\DayOneInput.txt");
+        List<String> input = getInput("src/main/java/com/AdventCode/DayOne/DayOneInput.txt");
         List<String> cleanedInput = regex(input);
         int total = sumOfInputs(cleanedInput);
         print(total);
