@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e457574-54ea-4f7f-b807-1b18936a32b8" name="Changes" comment="Day Three - Success">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/DayFourInput.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/DayFourManualInput.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/DayFourTestInput.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/LotteryCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/PartOne.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/PartTwo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayFour/prompt.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayThree/PartTwo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayThree/PartTwo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayThree/Prompt.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/AdventCode/DayThree/Prompt.md" afterDir="false" />
-    </list>
+    <list default="true" id="7e457574-54ea-4f7f-b807-1b18936a32b8" name="Changes" comment="Day Two - Success" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -185,7 +174,28 @@
       <option name="project" value="LOCAL" />
       <updated>1701650332918</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Day Four - Success">
+      <created>1701680216023</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701680216023</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Day One - Success">
+      <created>1701680398411</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701680398411</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Day Two - Success">
+      <created>1701680460013</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701680460013</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -194,7 +204,10 @@
     <MESSAGE value="Cleaned Up" />
     <MESSAGE value="Third Day, still haven't solved part one" />
     <MESSAGE value="Day Three - Success" />
-    <option name="LAST_COMMIT_MESSAGE" value="Day Three - Success" />
+    <MESSAGE value="Day Four - Success" />
+    <MESSAGE value="Day One - Success" />
+    <MESSAGE value="Day Two - Success" />
+    <option name="LAST_COMMIT_MESSAGE" value="Day Two - Success" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
