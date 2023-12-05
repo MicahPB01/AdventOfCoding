@@ -18,9 +18,6 @@ public class PartTwo {
 
     public static void main(String[] args) throws IOException {
 
-
-
-
         List<String> input =  readLines("src/main/java/com/AdventCode/DayFour/DayFourInput.txt");
         List<LotteryCard> lotteryCards = createLotteryCards(input);
 
@@ -28,10 +25,6 @@ public class PartTwo {
 
         int total = calculateTotalValueOfAllCards(updatedCards);
         printResults(total);
-
-
-
-
 
     }
 
@@ -51,16 +44,13 @@ public class PartTwo {
             lotteryCards.add(currentCard);
         }
 
-
-
-
         return lotteryCards;
     }
 
     private static LotteryCard buildCard(String input)   {
         int gameID;
-        int[] winningNumbers = new int[AMOUNT_OF_WINNING_NUMBERS];
-        int[] drawnNumbers = new int[AMOUNT_OF_DRAWN_NUMBERS];
+        int[] winningNumbers;
+        int[] drawnNumbers;
         int cardValue;
 
 
@@ -100,30 +90,18 @@ public class PartTwo {
         String[] barSplit;
         String[] spaceSplit;
         String cleanedString;
-        int offset = 0;
-
-
-
 
         //find beginning of winning numbers
         colonSplit = input.split(": ");
         //find end of winning numbers
         barSplit = colonSplit[1].split(" \\|");
 
-
-
-
         //remove extra spaces
         cleanedString = barSplit[0].replaceAll("  ", " ");
-
         cleanedString = cleanedString.trim();
-
 
         //split winning numbers up
         spaceSplit = cleanedString.split(" ");
-
-
-
 
         //convert strings to numbers
         for(int i = 0; i < AMOUNT_OF_WINNING_NUMBERS; i++)   {
@@ -131,11 +109,6 @@ public class PartTwo {
             winningNumbers[i] = convertStringToInt(spaceSplit[i]);
 
         }
-
-
-
-
-
 
         return winningNumbers;
     }
@@ -154,9 +127,6 @@ public class PartTwo {
         cleanedString = cleanedString.trim();
 
         spaceSplit = cleanedString.split(" ");
-
-
-
 
         for(int i = 0; i < AMOUNT_OF_DRAWN_NUMBERS; i++)   {
             drawnNumbers[i] = convertStringToInt(spaceSplit[i]);
@@ -210,43 +180,31 @@ public class PartTwo {
 
         }
         return false;
-
     }
 
     private static int createValueOfCardFromNumberOfMatchedNumbers(int numberOfMatchedValues)   {
-        int base = 1;
         int value = 1;
 
 
         for(int i = 0; i < numberOfMatchedValues - 1; i++)   {
-
-
             value *= 2;
-
         }
 
         if(numberOfMatchedValues == 0 )   {
             value = 0;
         }
 
-
-
         return value;
-
     }
 
     private static int calculateTotalValueOfAllCards(List<LotteryCard> lotteryCards)   {
         int total = 0;
-
-
 
         for(int i = 0; i < lotteryCards.size(); i++)   {
 
             total += lotteryCards.get(i).getNumberOfCards();
 
         }
-
-
         return total;
 
     }
@@ -280,16 +238,8 @@ public class PartTwo {
         }
     }
 
-
-
-
-
-
-
     private static void printResults(int total)   {
         System.out.println("Total: " + total);
-
-
     }
 
     private static int convertStringToInt(String string)   {
