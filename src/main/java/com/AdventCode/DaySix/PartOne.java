@@ -1,12 +1,14 @@
 package com.AdventCode.DaySix;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
 public class PartOne {
-    private static final long NUMBER_OF_SEEDS = 4;
+    private static final long NUMBER_OF_SEEDS = 5;
     private static final long SIZE_OF_MAP = 3;
     private static final long NUMBER_OF_LEVELS =  7;
     private static final long SEEDS_TO_SOIL = 0;
@@ -22,12 +24,14 @@ public class PartOne {
     public static void main(String args[]) throws IOException {
 
 
+
+
         List<String> input = getInput("src/main/java/com/AdventCode/DaySix/DaySixTestInput.txt");
         long[] seedNumbers = getSeedNumbers(input.get(0));
         List<List<String>> blocks = findNumbersToMap(input);
         blocks = removeSeeds(blocks);
-        List<HashMap<Long, Long>> maps = createMapHead(blocks);
-        long closestSeed = findClosestSeed(seedNumbers, maps);
+        List<HashMap<Long, Long>> maps = createMapHead(blocks, seedNumbers);
+        //long closestSeed = findClosestSeed(seedNumbers, maps);
 
 
 
@@ -74,45 +78,63 @@ public class PartOne {
 
     }
 
-    private static List<HashMap<Long, Long>> createMapHead(List<List<String>> numbersToMap)   {
+    private static List<HashMap<Long, Long>> createMapHead(List<List<String>> numbersToMap, long[] seeds) throws IOException {
         List<HashMap<Long, Long>> maps = new ArrayList<>();
 
-        for(long i = 0; i < NUMBER_OF_LEVELS; i++)   {
 
-            HashMap<Long, Long> map = createMapFoot(numbersToMap.get((int) i));
-            maps.add(map);
+        long seed = seeds[0];
+
+            for (long i = 0; i < NUMBER_OF_LEVELS; i++) {
+
+                createMapFoot(numbersToMap.get((int) i), (int) i, 1);
+                //System.out.println("MAP NUMBER: " + i);
+                //System.out.println("CURRENT MAP: " + map);
+                //System.out.println("Looking for seed: " + seed);
 
 
+                //seed = findClosestSeed(seed, map);
 
-        }
+
+                // maps.add(map);
+
+
+            }
+            System.out.println("Seed is at:" + seed);
 
         return maps;
 
     }
 
-    private static HashMap<Long, Long> createMapFoot(List<String> numbersToMap)   {
+    private static void createMapFoot(List<String> numbersToMap, int mapNumber, long seed) throws IOException {
         long length;
         long base;
         long equivalent;
+        seed = 79;
 
 
         HashMap<Long, Long> map = new HashMap<>();
         String[] lineNeedingMapping;
 
+
         for(long i = 0; i < numbersToMap.size(); i++)   {
 
-
+            System.out.println("NEW SEED: " + seed);
 
             lineNeedingMapping = numbersToMap.get((int) i).split(" ");
             equivalent = Long.parseLong(lineNeedingMapping[0]);
             base = Long.parseLong(lineNeedingMapping[1]);
             length = Long.parseLong(lineNeedingMapping[2]);
 
-            for(long j = 0; j < length; j++) {
-                map.put(base + j, equivalent + j);
+            System.out.println(equivalent + " " + base + " " + length);
 
+            if(seed >= equivalent && seed <= base)   {
+
+                seed = seed + length;
+                System.out.println("Found relationshpi");
+                break;
             }
-            //System.out.prlongln("Completed line");
+
+
 
 
 
@@ -123,7 +145,6 @@ public class PartOne {
 
 
 
-        return map;
     }
 
     private static List<List<String>> removeSeeds(List<List<String>> input)   {
@@ -182,21 +203,19 @@ public class PartOne {
 
     }
 
-    private static long findClosestSeed(long[] seeds, List<HashMap<Long, Long>> maps)   {
+    private static long findClosestSeed(long seed, HashMap<Long, Long> map)   {
 
         long currentNumber;
         long newNumber;
         long oldNumber;
 
-        for(long i= 0; i < seeds.length; i++)   {
 
-            currentNumber = seeds[(int) i];
+
+            currentNumber = seed;
            //System.out.prlongln("STARTING: " + currentNumber);
            //System.out.prlongln();
 
 
-
-            for(long j = 0; j < NUMBER_OF_LEVELS  ; j++)   {
 
                 //System.out.prlongln("LOOKING FOR: " + currentNumber);
                //System.out.prlongln("LOOKING AT THIS MAP: " + maps.get(j));
@@ -204,33 +223,30 @@ public class PartOne {
                 //System.out.prlongln("KEY AT CURRENT NUMBER: " + maps.get(j).get(currentNumber));
 
 
-                if(maps.get((int) j).containsKey(currentNumber))   {
-                    //System.out.prlongln("FOUND RELATIONSHIP");
-                    currentNumber = maps.get((int) j).get(currentNumber);
+                if(map.containsKey(currentNumber))   {
+                  //  System.out.println("FOUND RELATIONSHIP");
+                    currentNumber = map.get(currentNumber);
                 }
                 else   {
-                    //System.out.prlongln("NOT PRESENT");
+                   // System.out.println("NOT PRESENT");
 
                 }
 
 
 
 
-
-            }
-
-            System.out.println("SEED: " + i + " is at location " + currentNumber);
+            //System.out.println("SEED: is at location " + currentNumber);
 
 
 
-        }
 
 
-        return 0;
+
+        return currentNumber;
     }
 
 
-    private static void debugPrlongBoxes(List<List<String>> boxes)   {
+    private static void debugPrintBoxes(List<List<String>> boxes)   {
         for(long i = 0; i< NUMBER_OF_LEVELS; i++)   {
             for(long j = 0; j < boxes.get((int) i).size(); j++)   {
                 System.out.println("Box: " + i + " " + boxes.get((int) i).get((int) j));
