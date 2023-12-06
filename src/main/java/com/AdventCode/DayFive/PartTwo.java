@@ -1,4 +1,4 @@
-package com.AdventCode.DaySix;
+package com.AdventCode.DayFive;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class PartTwo {
-    private static final long NUMBER_OF_SEEDS = 4;
+    private static final long NUMBER_OF_SEEDS = 20;
     private static final long NUMBER_OF_LEVELS =  7;
 
 
@@ -16,8 +16,8 @@ public class PartTwo {
 
 
 
-        List<String> input = getInput("src/main/java/com/AdventCode/DaySix/DaySixTestInput.txt");
-        List<ArrayList<Long>> seedNumbers = getSeedNumbers(input.get(0));
+        List<String> input = getInput("src/main/java/com/AdventCode/DaySix/DayFiveInput.txt");
+        List<Long[]> seedNumbers = getSeedNumbers(input.get(0));
 
 
         List<List<String>> blocks = findNumbersToMap(input);
@@ -36,29 +36,48 @@ public class PartTwo {
 
     }
 
-    private static long startWithLocation(List<List<String>> blocks, List<ArrayList<Long>> seeds)   {
+    private static long startWithLocation(List<List<String>> blocks, List<Long[]> seeds)   {
 
         long location = 0;
+
+       // System.out.println(seeds);
 
         while(true)   {
 
 
-            long seed = locationToSeed(blocks);
+            long seed = locationToSeed(blocks, location);
+
+
+
+            for(int i = 0; i < seeds.size(); i++)   {
+               //System.out.println("Checking to see if " + seed + " is between these numbers. " + seeds.get(i)[0] + " " + (seeds.get(i)[0] + seeds.get(i)[1]));
+
+                if(seed >= seeds.get(i)[0] && seed <= (seeds.get(i)[0] + seeds.get(i)[1]) )  {
+                    System.out.println("Found smaller range, ready for next step. lowest found so far is " + location);
+                    return 0;
+
+                }
+
+            }
+
+
 
 
             location++;
 
-            break;
+
         }
 
-        return 0;
+
+
     }
 
-    private static long locationToSeed(List<List<String>> blocks)   {
+    private static long locationToSeed(List<List<String>> blocks, long currentPlace)   {
+        //System.out.println("Searching from " + currentPlace);
 
-        long currentPlace = 86;
+
         long seed = 0;
-        for(int i = (int) NUMBER_OF_LEVELS - 1; i > 0; i--)   {
+        for(int i = (int) NUMBER_OF_LEVELS - 1 ; i >= 0; i--)   {
 
 
 
@@ -72,9 +91,9 @@ public class PartTwo {
                 long length = Long.parseLong(lineNeedingMapping[2]);
                 long offset =  (base - equivalent);
 
-                System.out.println("EQ: " + equivalent + " BASE: " + base + " Length: " + length + " Seed: " + currentPlace + " Offset: " + offset);
+                //System.out.println("EQ: " + equivalent + " BASE: " + base + " Length: " + length + " Seed: " + currentPlace + " Offset: " + offset);
                 if(currentPlace >= equivalent && currentPlace <= equivalent + length)   {
-                    System.out.println("Found Link");
+                    //System.out.println("Found Link");
                     currentPlace = currentPlace + offset;
                     break;
                 }
@@ -83,45 +102,46 @@ public class PartTwo {
 
 
             }
-            System.out.println("Location: " + currentPlace + " has seed " + seed);
+           //System.out.println("Location: " + currentPlace + " has seed " + seed);
             seed = currentPlace;
 
 
 
         }
-        System.out.println("Location: " + currentPlace + " has seed " + seed);
 
-        return seed;
+        //System.out.println(currentPlace);
+
+        return currentPlace;
 
 
 
     }
 
 
-    private static List<ArrayList<Long>> getSeedNumbers(String input)   {
+    private static List<Long[]> getSeedNumbers(String input)   {
 
+        List<Long[]> allSeeds = new ArrayList<>();
 
         String[] splitTemp = input.split(": ");
-        long[] seedNumbers = new long[(int) NUMBER_OF_SEEDS];
         splitTemp = splitTemp[1].split(" ");
-        List<ArrayList<Long>> allSeeds = new ArrayList<>();
 
 
-        //System.out.println(Arrays.toString(splitTemp));
+        for(int i = 0; i < NUMBER_OF_SEEDS; i += 2)   {
 
+            long seed = Long.parseLong(splitTemp[i]);
+            long range = Long.parseLong(splitTemp[i+1]);
 
-        for(int i = 0; i < NUMBER_OF_SEEDS; i+=2) {
-
-            ArrayList<Long> currentSeeds = expandSeeds(Long.parseLong(splitTemp[i]), Long.parseLong(splitTemp[i+1]));
-            allSeeds.add(currentSeeds);
-
-
-
-            //System.out.println(Arrays.asList(splitTemp));
+            Long[] seedsWithRange = {seed, range};
+            allSeeds.add(seedsWithRange);
 
         }
 
-        System.out.println(List.of(allSeeds));
+
+
+
+        for(int i = 0; i < allSeeds.size(); i++)   {
+            //System.out.println(allSeeds.get(i)[0] + " " + allSeeds.get(i)[1]);
+        }
 
         return allSeeds;
 

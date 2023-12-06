@@ -1,4 +1,4 @@
-package com.AdventCode.DaySix;
+package com.AdventCode.DayFive;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ public class PartOne {
 
 
 
-        List<String> input = getInput("src/main/java/com/AdventCode/DaySix/DaySixInput.txt");
+        List<String> input = getInput("src/main/java/com/AdventCode/DaySix/DayFiveInput.txt");
         long[] seedNumbers = getSeedNumbers(input.get(0));
 
 
