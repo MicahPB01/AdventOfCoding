@@ -1,4 +1,4 @@
-package com.AdventCode.ActualDaySix;
+package com.AdventCode.DaySix;
 
 import java.io.IOException;
 import java.nio.file.Files;
