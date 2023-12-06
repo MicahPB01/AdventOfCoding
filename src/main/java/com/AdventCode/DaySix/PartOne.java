@@ -11,7 +11,7 @@ public class PartOne {
 
 
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
 
 
 
@@ -25,7 +25,7 @@ public class PartOne {
 
 
         Long finalResult = findResult(blocks, seedNumbers);
-        //long closestSeed = findClosestSeed(seedNumbers, maps);
+        printResult(finalResult);
 
 
     }
@@ -34,6 +34,9 @@ public class PartOne {
 
         return Files.readAllLines(Path.of(filePath));
 
+    }
+    private static void printResult(long result)   {
+        System.out.println(result);
     }
 
     private static long[] getSeedNumbers(String input)   {
@@ -64,13 +67,14 @@ public class PartOne {
 
     }
 
-    private static long findResult(List<List<String>> numbersToMap, long[] seeds) throws IOException {
+    private static long findResult(List<List<String>> numbersToMap, long[] seeds) throws IOException, InterruptedException {
         List<HashMap<Long, Long>> maps = new ArrayList<>();
         long lowestLocation = 100000000000000000L;
 
 
         for(int j = 0; j < seeds.length; j++) {
            long seed = seeds[j];
+           Thread.sleep(800);
 
 
             for (long i = 0; i < NUMBER_OF_LEVELS; i++) {
@@ -91,11 +95,11 @@ public class PartOne {
             if(seed < lowestLocation)   {
                 lowestLocation = seed;
             }
-            System.out.println("Seed is at:" + seed);
+           // System.out.println("Seed is at:" + seed);
 
         }
 
-        System.out.println(lowestLocation);
+        //System.out.println(lowestLocation);
 
         return lowestLocation;
 
