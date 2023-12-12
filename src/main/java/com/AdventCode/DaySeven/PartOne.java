@@ -65,7 +65,7 @@ public class PartOne {
         // Displaying the sorted list using traditional for loop
         for (int i = 0; i < hands.size(); i++) {
             Hand hand = hands.get(i);
-            System.out.println("Hand " + i + ": " + hand.getCards());
+            System.out.println(hand.getCards());
         }
 
         int total = 0;
@@ -107,7 +107,7 @@ return 0;
         String order = "23456789TJQKA";
 
         // Compare based on the custom order
-        for (int i = card1.length() - 1; i >= 0; i--) {
+        for (int i = 0; i < card1.length(); i++) {
             char char1 = card1.charAt(i);
             char char2 = card2.charAt(i);
 
@@ -124,6 +124,7 @@ return 0;
         // If all characters checked so far are equal, consider the higher hand
         return 0;
     }
+
 
 
 
@@ -216,7 +217,7 @@ return 0;
 
     private static int determineStrengthOfHand(ArrayList<String[]> cards)   {
 
-        System.out.println("there are " + cards.size() + " cards");
+        //System.out.println("there are " + cards.size() + " cards");
 
         int strength = 1;
 
@@ -240,16 +241,16 @@ return 0;
 
             if(currentCardCount == 3) {
                 boolean foundPair = false;
-                System.out.println("looking for a pair from a triple");
+                //System.out.println("looking for a pair from a triple");
                 System.out.println();
 
                 for (int j = 0; j < cards.size(); j++) {
-                    System.out.println("Card: " + cards.get(j)[0] + " Count:" + cards.get(j)[1]);
+                   //System.out.println("Card: " + cards.get(j)[0] + " Count:" + cards.get(j)[1]);
 
 
 
                     if(Integer.parseInt(cards.get(j)[1]) == 2)   {
-                        System.out.println("Found a pair with a triple");
+                        //System.out.println("Found a pair with a triple");
                         foundPair = true;
                         break;
                     }
@@ -273,7 +274,7 @@ return 0;
                         foundPair = true;
                         break;
                     }
-                    if(Integer.parseInt(cards.get(j)[1]) == 3 && !cards.get(j)[0].equals((cards.get(i)[1])))   {
+                    if(Integer.parseInt(cards.get(j)[1]) == 3 && !cards.get(j)[0].equals((cards.get(i)[0])))   {
 
                         foundTriple = true;
                         break;
