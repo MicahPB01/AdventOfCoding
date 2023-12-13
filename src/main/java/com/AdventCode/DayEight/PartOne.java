@@ -63,7 +63,6 @@ public class PartOne {
                 i = 0;
             }
 
-            // Optional: Check for null to avoid NullPointerException
 
         }
 
